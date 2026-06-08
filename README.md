@@ -20,7 +20,6 @@ Driven by a quest to navigate the Data Analyst job market more effectively, the 
 Each query for this project aimed at  investigating specific aspects of the data analyst job market. Here's how I approach each question:
 
 ### 1. Top paying Data Analyst jobs
-To identify the highest paying roles, I filtered data analyst positions by average yearly salary and location,focusing on remote jobs.The query highlights the high paying opportunities in the field.
 
 ```SQL
 SELECT 
@@ -36,11 +35,11 @@ WHERE job_title_short='Data Analyst'
 AND job_location='Anywhere' 
 AND salary_year_avg IS NOT NULL
 ORDER BY salary_year_avg DESC
-LIMIT 10;;
+LIMIT 10;
 ```
-### 2. Skills are required for these top paying jobs
+### 2. Skills that are required for these top paying jobs
 
-```
+```SQL
 
 WITH top_paying_jobs AS(
 SELECT 
@@ -66,11 +65,12 @@ INNER JOIN skills_dim ON skills_job_dim.skill_id=skills_dim.skill_id
 ORDER BY salary_year_avg DESC
 LIMIT 10
 ;
-```
-### 3. What skills are most in demand for Data Analysts?
 
 ```
---what are the most indemand skills for my role
+
+### 3. Most in demand skills for Data Analysts
+
+```SQL
 
 WITH myrole AS(
 SELECT
@@ -91,9 +91,9 @@ ORDER BY skill_count DESC
 LIMIT 5
 ;
 ```
-### 4. Which skills are associated with higher salaries?
+### 4. Skills associated with higher salaries.
 
-```
+```SQL
     WITH salarybased AS 
 (
 SELECT
@@ -119,9 +119,9 @@ LIMIT 25
 )
 ;
 ```
-### 5.What are the most optimal skills to learns?
+### 5.Optimal skills to learn.
 
-```
+```SQL
 WITH skills_demand AS
 (
 SELECT
