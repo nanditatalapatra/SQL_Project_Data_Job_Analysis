@@ -1,20 +1,20 @@
 --what are the most indemand skills for my role
 
-with myrole as(
-select
+WITH myrole AS(
+SELECT
 job_id,
 job_title_short
-from job_postings_fact
-where job_title_short='Data Analyst'
+FROM job_postings_fact
+WHERE job_title_short='Data Analyst'
 )
-select
+SELECT
 skills_dim.skills,
-count(myrole.job_id) as skill_count
-from
+count(myrole.job_id) AS skill_count
+FROM
 myrole
-inner join skills_job_dim on myrole.job_id=skills_job_dim.job_id
-inner join skills_dim on skills_job_dim.skill_id=skills_dim.skill_id
-group by skills_dim.skills
-order by skill_count desc
-limit 5
+INNER JOIN skills_job_dim ON myrole.job_id=skills_job_dim.job_id
+INNER JOIN skills_dim ON skills_job_dim.skill_id=skills_dim.skill_id
+GROUP BY skills_dim.skills
+ORDER BY skill_count DESC
+LIMIT 5
 ;

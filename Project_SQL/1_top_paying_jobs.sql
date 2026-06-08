@@ -3,16 +3,18 @@
 --Focuses on job postings with specified salaries(remove nulls)
 --why?highlight the top paying opportunities for Data Analysts, offering insight into 
 
-select 
+SELECT 
 a.job_id,
 a.job_title,
 a.job_location,
 a.salary_year_avg,
 b.name
-from job_postings_fact a
-left join company_dim b
-on a.company_id=b.company_id
-where job_title_short='Data Analyst' and job_location='Anywhere' and salary_year_avg is NOT NULL
-order by salary_year_avg desc
+FROM job_postings_fact a
+LEFT JOIN company_dim b
+ON a.company_id=b.company_id
+WHERE job_title_short='Data Analyst' 
+AND job_location='Anywhere' 
+AND salary_year_avg IS NOT NULL
+ORDER BY salary_year_avg DESC
 LIMIT 10;
 

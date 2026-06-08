@@ -2,27 +2,27 @@
 
 
 
-with salarybased as 
+WITH salarybased AS 
 (
 SELECT
 job_id,
 job_title_short,
 salary_year_avg
-from job_postings_fact
-where job_title_short='Data Analyst'
-and salary_year_avg is not null
-and job_work_from_home =TRUE
+FROM job_postings_fact
+WHERE job_title_short='Data Analyst'
+AND salary_year_avg IS NOT NULL
+AND job_work_from_home =TRUE
 )
 (
 SELECT
-round(avg(salarybased.salary_year_avg),0) as avg_salary,
+round(avg(salarybased.salary_year_avg),0) AS avg_salary,
 skills_dim.skills,
 count(salarybased.job_id) as skill_count
-from salarybased 
-inner join skills_job_dim on salarybased.job_id=skills_job_dim.job_id
-inner join skills_dim on skills_dim.skill_id=skills_job_dim.skill_id
-group by skills_dim.skills
+FROM salarybased 
+INNER JOIN skills_job_dim ON salarybased.job_id=skills_job_dim.job_id
+INNER JOIN skills_dim ON skills_dim.skill_id=skills_job_dim.skill_id
+GROUP BY skills_dim.skills
 ORDER BY avg_salary DESC
-limit 25
+LIMIT 25
 )
 ;

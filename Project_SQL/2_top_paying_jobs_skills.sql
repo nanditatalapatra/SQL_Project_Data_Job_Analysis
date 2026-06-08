@@ -1,25 +1,25 @@
 
-with top_paying_jobs as(
-select 
+WITH top_paying_jobs AS(
+SELECT 
 a.job_id,
 a.job_title,
 a.job_title_short,
 a.job_location,
 a.salary_year_avg,
-b.name as company_name
-from job_postings_fact a
-left join company_dim b
-on a.company_id=b.company_id
-where job_title_short='Data Analyst' and job_location='Anywhere' and salary_year_avg is NOT NULL
-order by salary_year_avg desc
+b.name AS company_name
+FROM job_postings_fact a
+LEFT JOIN company_dim b
+ON a.company_id=b.company_id
+WHERE job_title_short='Data Analyst' AND job_location='Anywhere' AND salary_year_avg IS NOT NULL
+ORDER BY salary_year_avg DESC
 LIMIT 10
 )
-select top_paying_jobs.*,
+SELECT top_paying_jobs.*,
 skills
 FROM
 top_paying_jobs
-left join skills_job_dim on top_paying_jobs.job_id=skills_job_dim.job_id
-inner join skills_dim on skills_job_dim.skill_id=skills_dim.skill_id
+LEFT JOIN skills_job_dim ON top_paying_jobs.job_id=skills_job_dim.job_id
+INNER JOIN skills_dim ON skills_job_dim.skill_id=skills_dim.skill_id
 ORDER BY salary_year_avg DESC
-limit 10
+LIMIT 10
 ;
